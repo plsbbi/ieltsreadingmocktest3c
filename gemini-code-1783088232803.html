@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ms Lê Hằng English - IELTS Reading Mock Test</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8854C0;
+            --primary-light: #f3ebfc;
+            --secondary: #FDCB6E;
+            --accent: #00C9A7;
+            --bg-correct: #00D26A;
+            --bg-wrong: #FF4757;
+            --text-dark: #2D3436;
+            --text-light: #636E72;
+            --pink-pastel: #FFD3E8;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Quicksand', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #FFF0F5;
+            background-image: linear-gradient(135deg, #FFE4E1 0%, #FFB6C1 50%, #E6E6FA 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-dark);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 100 100'%3E%3Ctext y='30' x='10' font-size='18'%3E🧸%3C/text%3E%3Ctext y='80' x='60' font-size='18'%3E🏰%3C/text%3E%3Ctext y='40' x='70' font-size='16'%3E⚔️%3C/text%3E%3C/svg%3E");
+            opacity: 0.12;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        header {
+            background: white;
+            padding: 12px 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+            border-bottom: 4px solid var(--primary-light);
+            height: 75px;
+        }
+
+        .brand h2 {
+            font-size: 13px;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .brand h1 {
+            font-size: 19px;
+            color: var(--primary);
+            font-weight: 900;
+            letter-spacing: -0.5px;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .timer-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #6c3da3;
+            transition: all 0.1s ease;
+        }
+
+        .timer-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 0 0 #6c3da3;
+        }
+
+        .timer-display {
+            font-size: 18px;
+            font-weight: 900;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 8px 15px;
+            border-radius: 12px;
+            min-width: 85px;
+            text-align: center;
+        }
+
+        .progress-container {
+            flex-grow: 1;
+            max-width: 350px;
+            background: #E4E7EB;
+            height: 16px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            margin: 0 25px;
+            border: 2px solid #fff;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--bg-correct));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* FIXED MAIN CONTAINER HEIGHT FOR SMOOTH SCROLLING */
+        .main-container {
+            display: flex;
+            flex: 1;
+            height: calc(100vh - 75px); 
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+
+        .split-pane {
+            width: 50%;
+            height: 100%;
+            overflow-y: scroll; /* Bắt buộc hiển thị thanh cuộn dọc */
+            padding: 30px;
+        }
+
+        /* Tùy chỉnh thanh cuộn siêu kute style Gamification */
+        .split-pane::-webkit-scrollbar {
+            width: 10px;
+        }
+        .split-pane::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+        }
+        .split-pane::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--primary), #AF7AC5);
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .left-pane {
+            border-right: 4px solid #FFF;
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(10px);
+        }
+
+        .right-pane {
+            background: rgba(255, 255, 255, 0.78);
+            backdrop-filter: blur(10px);
+        }
+
+        .passage-title {
+            color: var(--primary);
+            font-size: 26px;
+            font-weight: 900;
+        }
+
+        .passage-subtitle {
+            font-style: italic;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            font-size: 15px;
+        }
+
+        .paragraph-card {
+            background: white;
+            padding: 22px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+            border: 2px solid transparent;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .paragraph-card:hover {
+            border-color: var(--primary-light);
+        }
+
+        .paragraph-card.highlight-anchor {
+            border-color: var(--secondary);
+            background-color: #FFFDF5;
+            box-shadow: 0 0 15px rgba(253, 203, 110, 0.3);
+        }
+
+        .p-tag {
+            position: absolute;
+            top: -12px;
+            left: 15px;
+            background: var(--secondary);
+            color: var(--text-dark);
+            font-weight: 900;
+            padding: 3px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            box-shadow: 2px 2px 0 var(--text-dark);
+        }
+
+        .p-text {
+            line-height: 1.75;
+            font-size: 15px;
+            text-align: justify;
+        }
+
+        ::selection {
+            background: var(--pink-pastel);
+        }
+
+        .translation-btn {
+            background: var(--primary-light);
+            color: var(--primary);
+            border: none;
+            padding: 6px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: background 0.2s;
+        }
+
+        .translation-btn:hover {
+            background: #eadaf7;
+        }
+
+        .translation-text {
+            display: none;
+            margin-top: 12px;
+            padding: 15px;
+            background: #FDFCF7;
+            border-left: 4px solid var(--secondary);
+            font-size: 14.5px;
+            color: #3F3F3F;
+            border-radius: 0 12px 12px 0;
+            line-height: 1.7;
+            text-align: justify;
+        }
+
+        .section-card {
+            background: white;
+            border-radius: 25px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.04);
+            border: 3px solid #FFF;
+        }
+
+        .section-title {
+            color: var(--primary);
+            font-size: 19px;
+            font-weight: 900;
+            margin-bottom: 15px;
+            border-bottom: 2px dashed var(--primary-light);
+            padding-bottom: 10px;
+        }
+
+        .question-block {
+            margin-bottom: 25px;
+            padding: 18px;
+            background: #FAF9FC;
+            border-radius: 18px;
+            border: 1px solid #F1EDF7;
+        }
+
+        .question-text {
+            font-weight: 700;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .select-wrapper {
+            display: inline-block;
+            position: relative;
+        }
+
+        .custom-select {
+            appearance: none;
+            -webkit-appearance: none;
+            background-color: #FFF;
+            border: 2px solid #E2D9F3;
+            border-radius: 15px;
+            padding: 6px 35px 6px 18px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary);
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 3px 0 #E2D9F3;
+        }
+
+        .custom-select:hover {
+            border-color: var(--primary);
+        }
+
+        .select-wrapper::after {
+            content: "▼";
+            font-size: 10px;
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            pointer-events: none;
+        }
+
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .option-card {
+            background: white;
+            border: 2px solid #E4E7EB;
+            padding: 12px 18px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 14.5px;
+            display: flex;
+            align-items: center;
+            transition: all 0.15s ease;
+            box-shadow: 0 4px 0 #E4E7EB;
+        }
+
+        .option-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+            box-shadow: 0 6px 0 #E4E7EB;
+        }
+
+        .explanation-box {
+            display: none;
+            margin-top: 15px;
+            padding: 18px;
+            background: #FFFDF5;
+            border: 2px solid #FDCB6E;
+            border-radius: 15px;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(253, 203, 110, 0.15);
+        }
+
+        .exp-header {
+            font-weight: 900;
+            color: #A36AD6;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px dashed #FFEAA7;
+            padding-bottom: 6px;
+        }
+
+        .locate-btn {
+            background: #FFF;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 2px 0 var(--primary-light);
+        }
+
+        .locate-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .correct-state {
+            background-color: var(--bg-correct) !important;
+            border-color: #00b35a !important;
+            color: white !important;
+            box-shadow: 0 4px 0 #00b35a !important;
+        }
+        
+        .select-wrapper.correct-state::after {
+            color: white !important;
+        }
+
+        .wrong-state {
+            background-color: var(--bg-wrong) !important;
+            border-color: #e63342 !important;
+            color: white !important;
+            box-shadow: 0 4px 0 #e63342 !important;
+            animation: shake 0.35s ease-in-out;
+        }
+
+        .select-wrapper.wrong-state::after {
+            color: white !important;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+
+        .submit-area {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .submit-main-btn {
+            background: linear-gradient(135deg, var(--primary), #AF7AC5);
+            color: white;
+            font-size: 22px;
+            font-weight: 900;
+            padding: 15px 60px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 0 #6c3da3;
+            transition: all 0.1s;
+        }
+
+        .submit-main-btn:active {
+            transform: translateY(6px);
+            box-shadow: 0 2px 0 #6c3da3;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            max-width: 550px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            border: 5px solid var(--secondary);
+            animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popUp {
+            from { transform: scale(0.7); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-score {
+            font-size: 52px;
+            font-weight: 900;
+            color: var(--primary);
+            margin: 20px 0;
+        }
+
+        .modal-comment {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 25px;
+        }
+
+        .close-modal-btn {
+            background: var(--accent);
+            color: white;
+            padding: 12px 35px;
+            border: none;
+            border-radius: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #00aa8d;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand">
+            <h2>Ms Lê Hằng English</h2>
+            <h1>IELTS READING MOCK TEST</h1>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="controls">
+            <button class="timer-btn" id="timerBtn" onclick="toggleTimer()">BẮT ĐẦU TÍNH GIỜ LÀM BÀI</button>
+            <div class="timer-display" id="timerDisplay">25:00</div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- LEFT PANE: Reading Passage -->
+        <div class="split-pane left-pane" id="leftPane">
+            <h2 class="passage-title">Child’s Play in Medieval England</h2>
+            <p class="passage-subtitle">Professor Nicholas Orme investigates childhood in the Middle Ages</p>
+
+            <div class="paragraph-card" id="para-A">
+                <span class="p-tag">Paragraph A</span>
+                <p class="p-text"><strong>A</strong> ‘Play up! Play up! And play the game!’ The ringing chorus of Sir Henry Newbolt’s celebrated cricket poem Vitaï Lampada (1908) sums up views about play in 19th- and early 20th-century Britain. Children’s play was important, and adults should regulate and direct it. Games promoted endurance, self-discipline and team spirit – qualities needed for the health of society and government. Newbolt was one in a long line of people who thought in this way. The notion that children’s play should be used for educational and social purposes goes back at least to the ancient Greeks and the toys and games of medieval England tell us much about how adults then saw childhood. But they also reveal a good deal about children themselves, and cast light on what has recently become a controversial issue.</p>
+                <button class="translation-btn" onclick="toggleTranslation('trans-A')">Mở dịch đoạn này 🌟</button>
+                <div class="translation-text" id="trans-A">‘Chơi lên! Chơi lên! Và chơi hết mình!’ Điệp khúc vang dội trong bài thơ nổi tiếng về bộ môn cricket mang tên Vitaï Lampada (1908) của Sir Henry Newbolt đã tóm gọn những quan điểm về việc chơi đùa ở nước Anh thế kỷ 19 và đầu thế kỷ 20. Trò chơi của trẻ em rất quan trọng, và người lớn nên điều tiết cũng như định hướng nó. Các trò chơi thúc đẩy khả năng chịu đựng, tính kỷ luật tự giác và tinh thần đồng đội – những phẩm chất cần thiết cho sự lành mạnh của xã hội và chính phủ. Newbolt là một người trong chuỗi dài những người có cùng tư duy này. Ý niệm cho rằng trò chơi của trẻ em nên được sử dụng cho mục đích giáo dục và xã hội đã có từ thời Hy Lạp cổ đại, và đồ chơi cùng các trò chơi của nước Anh thời trung cổ nói với chúng ta nhiều điều về cách người lớn thời đó nhìn nhận tuổi thơ. Nhưng chúng cũng tiết lộ rất nhiều điều về chính bản thân trẻ em, và soi sáng một vấn đề gần đây đã trở thành tranh cãi.</div>
+            </div>
+
+            <div class="paragraph-card" id="para-B">
+                <span class="p-tag">Paragraph B</span>
+                <p class="p-text"><strong>B</strong> Forty years ago, the French historian Philippe Ariès argued, in Centuries of Childhood, that childhood in the Middle Ages did not exist in its modern sense. Children were regarded by adults with relatively little affection and followed a way of life not very different from that of that of their elders. More recent historians have disputed this, pointing to plentiful signs of parental affection and arguing that childhood, by its very nature, must always have been much the same.</p>
+                <button class="translation-btn" onclick="toggleTranslation('trans-B')">Mở dịch đoạn này 🌟</button>
+                <div class="translation-text" id="trans-B">Bốn mươi năm trước, nhà sử học người Pháp Philippe Ariès đã lập luận trong cuốn sách "Centuries of Childhood" rằng tuổi thơ ở thời Trung Cổ không hề tồn tại theo nghĩa hiện đại của nó. Trẻ em bị người lớn coi thường với sự yêu thương tương đối ít ỏi và tuân theo một lối sống không mấy khác biệt so với những người lớn tuổi hơn. Các nhà sử học gần đây đã bác bỏ điều này, chỉ ra vô số dấu hiệu về tình cảm mẫu tử/phụ tử và lập luận rằng tuổi thơ, về bản chất tự nhiên của nó, chắc chắn luôn luôn giống nhau ở mọi thời kỳ.</div>
+            </div>
+
+            <div class="paragraph-card" id="para-C">
+                <span class="p-tag">Paragraph C</span>
+                <p class="p-text"><strong>C</strong> In this debate play is crucial. Did adults encourage it? If so, did they see it as recreational (by providing toys, for example) or as educational (making children play in particular ways)? Did children play as their elders told them, or did they invent their own games, away from adults and even against their wishes? These questions can be answered from a rich body of evidence including actual toys of the period, pictures of children’s activities in contemporary manuscripts and literary sources such as religious works and dictionaries. We know not only how medieval English children played but what their elders thought on the subject.</p>
+                <button class="translation-btn" onclick="toggleTranslation('trans-C')">Mở dịch đoạn này 🌟</button>
+                <div class="translation-text" id="trans-C">Trong cuộc tranh luận này, việc vui chơi đóng vai trò cốt lõi. Người lớn có khuyến khích nó không? Nếu có, họ coi nó là mang tính giải trí (ví dụ bằng cách cung cấp đồ chơi) hay mang tính giáo dục (bắt trẻ em chơi theo những cách cụ thể)? Trẻ em đã chơi theo lời người lớn bảo, hay chúng tự phát minh ra các trò chơi của riêng mình, tránh xa người lớn và thậm chí đi ngược lại mong muốn của họ? Những câu hỏi này có thể được trả lời từ một khối lượng bằng chứng phong phú bao gồm đồ chơi thực tế của thời kỳ đó, hình ảnh về các hoạt động của trẻ em trong các bản viết tay đương đại và các nguồn tài liệu văn học như các tác phẩm tôn giáo và từ điển. Chúng ta không chỉ biết trẻ em Anh thời trung cổ đã chơi như thế nào mà còn biết những người lớn tuổi nghĩ gì về chủ đề này.</div>
+            </div>
+
+            <div class="paragraph-card" id="para-D">
+                <span class="p-tag">Paragraph D</span>
+                <p class="p-text"><strong>D</strong> We know, for example, that adults gave children toys from infancy onwards. In 1398 the writer John Trevisa describes babies playing with ‘a child’s brooch’, an object similar in function to the bright plastic toys given to babies today to bite and handle. William Horman, 16th-century author of a Latin textbook, talks of buying a rattle to stop a baby crying. Indeed, by 1300 it appears there was a toy industry in England. Boys’ toys often took military forms, such as the two metal soldiers of that date, found in London, and made from a mould. Girls had dolls, known before the 17th century as ‘poppets’ or puppets, commercially manufactured, imported and, in 1582, taxed at a halfpenny each. Not that children were by any means dependent on things that were bought for them. Gerald of Wales recalls how he and his brothers built towns, palaces, churches and monasteries from sand at Manorbier Castle in about 1150 (perhaps on the nearby beach).</p>
+                <button class="translation-btn" onclick="toggleTranslation('trans-D')">Mở dịch đoạn này 🌟</button>
+                <div class="translation-text" id="trans-D">Ví dụ, chúng ta biết rằng người lớn đã cho trẻ em đồ chơi từ lúc sơ sinh trở đi. Vào năm 1398, nhà văn John Trevisa mô tả những đứa trẻ chơi với ‘chiếc trâm cài của trẻ em’, một vật thể có chức năng tương tự như những đồ chơi bằng nhựa sáng màu được đưa cho trẻ sơ sinh ngày nay để cắn và cầm nắm. William Horman, tác giả thế kỷ 16 của một cuốn sách giáo khoa tiếng Latinh, nói về việc mua một chiếc xúc xắc để dỗ một em bé ngừng khóc. Thật vậy, vào năm 1300, dường như đã có một ngành công nghiệp đồ chơi ở Anh. Đồ chơi của con trai thường mang hình thức quân sự, chẳng hạn như hai người lính kim loại vào thời kỳ đó, được tìm thấy ở London và được làm từ một chiếc khuôn. Con gái có búp bê, được biết đến trước thế kỷ 17 với tên gọi ‘poppets’ hoặc puppets (rối), được sản xuất thương mại, nhập khẩu và vào năm 1582, bị đánh thuế ở mức nửa xu mỗi con. Không phải trẻ em hoàn toàn phụ thuộc vào những thứ được mua cho chúng. Gerald của Xứ Wales nhớ lại cách ông và các anh trai của mình đã xây dựng các thị trấn, lâu đài, nhà thờ và tu viện từ cát tại Lâu đài Manorbier vào khoảng năm 1150 (có lẽ là trên bãi biển gần đó).</div>
+            </div>
+
+            <div class="paragraph-card" id="para-E">
+                <span class="p-tag">Paragraph E</span>
+                <p class="p-text"><strong>E</strong> Active games were universal. In his English-to-Latin dictionary of 1440, a mysterious recluse known as Geoffrey mentions children playing ‘tennis’ and swinging on what he calls a ‘totter’ or ‘merrytotter’. Children chased each other, swam and played ball games. Boys in the later Middle Ages shot arrows with bows and archery is an example of a sport encouraged by adults, who wanted boys to grow up to play their part in what was, for most men, a warrior society.</p>
+                <button class="translation-btn" onclick="toggleTranslation('trans-E')">Mở dịch đoạn này 🌟</button>
+                <div class="translation-text" id="trans-E">Các trò chơi vận động mang tính phổ biến toàn cầu. Trong từ điển Anh-Latinh năm 1440 của mình, một ẩn sĩ bí ẩn tên là Geoffrey đã đề cập đến việc trẻ em chơi ‘quần vợt’ (tennis) và đánh đu trên cái mà ông gọi là ‘totter’ hay ‘merrytotter’ (bập bênh). Trẻ em đuổi bắt nhau, bơi lội và chơi các trò chơi với bóng. Các chàng trai ở thời kỳ hậu Trung cổ đã bắn tên bằng cung và bắn cung là một ví dụ về môn thể thao được người lớn khuyến khích, những người muốn các cậu bé lớn lên sẽ thực hiện nghĩa vụ của mình trong một xã hội chiến binh (phần lớn dành cho đàn ông thời bấy giờ).</div>
+            </div>
+
+            <div class="paragraph-card" id="para-F">
+                <span class="p-tag">Paragraph F</span>
+                <p class="p-text"><strong>F</strong> However, by no means all children’s military activity was directed by adults. In 1400, six months after King Richard II had been overthrown by Henry IV, the children of London gathered together and chose themselves kings. Adam of Usk tells us they congregated ‘in thousands … and made war upon each other … whereby many died’. The new king had to order their parents and masters to stop them.</p>
+                <button class="translation-btn" onclick="toggleTranslation('trans-F')">Mở dịch đoạn này 🌟</button>
+                <div class="translation-text" id="trans-F">Tuy nhiên, hoàn toàn không phải tất cả các hoạt động quân sự của trẻ em đều do người lớn chỉ đạo. Vào năm 1400, sáu tháng sau khi Vua Richard II bị Henry IV lật đổ, trẻ em ở London đã tụ tập lại và tự chọn ra các vị vua cho mình. Adam của Usk nói với chúng ta rằng chúng tụ họp ‘hàng ngàn đứa... và gây chiến với nhau... khiến nhiều đứa tử vong’. Vị vua mới đã phải ra lệnh cho cha mẹ và chủ nhân của chúng để bắt chúng dừng lại.</div>
+            </div>
+
+            <div class="paragraph-card" id="para-G">
+                <span class="p-tag">Paragraph G</span>
+                <p class="p-text"><strong>G</strong> This willingness of children to take the initiative in play, not just to wait for adults to direct them, is evident in the way they observed the calendar. Medieval life was regulated by light, weather, crops and the Church’s cycle of fasts and festivals. Children shared in the adult round of religious festivals, but had their own observances as well, semi-detached from their elders. In the 1200s, the priest Thomas Docking remarked that in spring a child ‘follows the ploughman; in autumn he accompanies the grape-gatherers’. In 1518, the poet Alexander Barclay records children playing with tops in March, looking for fruit in summer and making footballs by filling pigs’ bladders with dried peas in autumn.</p>
+                <button class="translation-btn" onclick="toggleTranslation('trans-G')">Mở dịch đoạn này 🌟</button>
+                <div class="translation-text" id="trans-G">Sự sẵn lòng chủ động này của trẻ em trong việc chơi đùa, thay vì chỉ chờ đợi người lớn định hướng, thể hiện rõ qua cách chúng tuân theo lịch trình thời gian. Cuộc sống thời trung cổ được điều tiết bởi ánh sáng, thời tiết, mùa màng và chu kỳ kiêng ăn cùng các lễ hội của Giáo hội. Trẻ em cùng tham gia vào chuỗi các lễ hội tôn giáo của người lớn, nhưng cũng có những nghi thức kỷ niệm riêng biệt của mình, tách biệt một phần với những người lớn tuổi. Vào những năm 1200, linh mục Thomas Docking nhận xét rằng vào mùa xuân, một đứa trẻ ‘đi theo người thợ cày; vào mùa thu, đứa trẻ đi cùng những người hái nho’. Vào năm 1518, nhà thơ Alexander Barclay ghi nhận trẻ em chơi quay (con quay) vào tháng Ba, tìm kiếm trái cây vào mùa hè và làm bóng đá bằng cách nhồi hạt đậu khô vào bàng quang lợn vào mùa thu.</div>
+            </div>
+
+            <div class="paragraph-card" id="para-H">
+                <span class="p-tag">Paragraph H</span>
+                <p class="p-text"><strong>H</strong> It is clear from this evidence that the relationship between adults and children in medieval society was, in major respects, a modern one. Parents took an indulgent interest in their children, providing them with toys and giving them time to play. Children played in a wide variety of ways – imaginatively, skilfully, athletically and violently – developing their minds, bodies and social skills. Adults tried at times to direct play – partly to keep children in order, partly to give them skills for adult life – but children gravitated to one another and formed a culture of their own. We can answer Ariès’s thesis, then, with a resounding ‘No!’. Childhood has always been much the same.</p>
+                <button class="translation-btn" onclick="toggleTranslation('trans-H')">Mở dịch đoạn này 🌟</button>
+                <div class="translation-text" id="trans-H">Từ những bằng chứng này, rõ ràng là mối quan hệ giữa người lớn và trẻ em trong xã hội trung cổ, xét trên các khía cạnh lớn, là một mối quan hệ mang tính hiện đại. Cha mẹ dành sự quan tâm nuông chiều đối với con cái của họ, cung cấp cho chúng đồ chơi và cho chúng thời gian để chơi đùa. Trẻ em chơi theo nhiều cách khác nhau – một cách giàu tưởng tượng, khéo léo, khỏe khoắn và bạo lực – qua đó phát triển trí tuệ, cơ thể và các kỹ năng xã hội của chúng. Người lớn đôi khi cố gắng định hướng việc vui chơi – một phần để giữ cho trẻ em có trật tự, một phần để truyền đạt cho chúng các kỹ năng cho cuộc sống trưởng thành – nhưng trẻ em vẫn xích lại gần nhau và tự tạo nên một nền văn hóa riêng. Do đó chúng ta có thể trả lời luận án của Ariès bằng một tiếng ‘Không!’ vang dội. Tuổi thơ luôn luôn cơ bản giống nhau.</div>
+            </div>
+        </div>
+
+        <!-- RIGHT PANE: Exercises -->
+        <div class="split-pane right-pane" id="rightPane">
+
+            <!-- QUESTIONS 27-31 -->
+            <div class="section-card">
+                <div class="section-title">Questions 27–31: Matching Information</div>
+                <p style="font-size: 13.5px; color: var(--text-light); margin-bottom: 15px;">Chọn đoạn văn (A–H) chứa thông tin được cung cấp dưới đây.</p>
+                
+                <!-- Q27 -->
+                <div class="question-block" id="block-q27">
+                    <div class="question-text">
+                        <span>27. Economic evidence for play in medieval England</span>
+                        <div class="select-wrapper" id="wrapper-q27">
+                            <select class="custom-select" onchange="checkDropdown('q27', this, 'D')">
+                                <option value="">-- Chọn --</option>
+                                <option value="A">Paragraph A</option><option value="B">Paragraph B</option>
+                                <option value="C">Paragraph C</option><option value="D">Paragraph D</option>
+                                <option value="E">Paragraph E</option><option value="F">Paragraph F</option>
+                                <option value="G">Paragraph G</option><option value="H">Paragraph H</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="explanation-box" id="exp-q27">
+                        <div class="exp-header">Giải thích chi tiết <button class="locate-btn" onclick="scrollToElement('para-D')">📍 Đến dẫn chứng</button></div>
+                        <p><strong>1. ĐÁP ÁN:</strong> D</p>
+                        <p><strong>2. ĐOẠN CHỨA ĐÁP ÁN:</strong> Paragraph D: "...commercially manufactured, imported and, in 1582, taxed at a halfpenny each."</p>
+                        <p><strong>3. DỊCH NGHĨA DẪN CHỨNG:</strong> "...được sản xuất thương mại, nhập khẩu và vào năm 1582, bị đánh thuế ở mức nửa xu mỗi con."</p>
+                        <p><strong>4. CỤM TỪ ĐỒNG NGHĨA:</strong> Economic evidence = commercially manufactured, taxed.</p>
+                    </div>
+                </div>
+
+                <!-- Q28 -->
+                <div class="question-block" id="block-q28">
+                    <div class="question-text">
+                        <span>28. An example of how children created their own toys</span>
+                        <div class="select-wrapper" id="wrapper-q28">
+                            <select class="custom-select" onchange="checkDropdown('q28', this, 'D')">
+                                <option value="">-- Chọn --</option>
+                                <option value="A">Paragraph A</option><option value="B">Paragraph B</option>
+                                <option value="C">Paragraph C</option><option value="D">Paragraph D</option>
+                                <option value="E">Paragraph E</option><option value="F">Paragraph F</option>
+                                <option value="G">Paragraph G</option><option value="H">Paragraph H</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="explanation-box" id="exp-q28">
+                        <div class="exp-header">Giải thích chi tiết <button class="locate-btn" onclick="scrollToElement('para-D')">📍 Đến dẫn chứng</button></div>
+                        <p><strong>1. ĐÁP ÁN:</strong> D</p>
+                        <p><strong>2. ĐOẠN CHỨA ĐÁP ÁN:</strong> Paragraph D: "Gerald of Wales recalls how he and his brothers built towns, palaces, churches and monasteries from sand..."</p>
+                        <p><strong>3. DỊCH NGHĨA DẪN CHỨNG:</strong> "Gerald của xứ Wales nhớ lại việc ông và các anh trai của mình xây dựng các thị trấn, cung điện, nhà thờ từ cát..."</p>
+                        <p><strong>4. CỤM TỪ ĐỒNG NGHĨA:</strong> created their own toys = built... from sand.</p>
+                    </div>
+                </div>
+
+                <!-- Q29 -->
+                <div class="question-block" id="block-q29">
+                    <div class="question-text">
+                        <span>29. An example of warlike play approved by grown-ups</span>
+                        <div class="select-wrapper" id="wrapper-q29">
+                            <select class="custom-select" onchange="checkDropdown('q29', this, 'E')">
+                                <option value="">-- Chọn --</option>
+                                <option value="A">Paragraph A</option><option value="B">Paragraph B</option>
+                                <option value="C">Paragraph C</option><option value="D">Paragraph D</option>
+                                <option value="E">Paragraph E</option><option value="F">Paragraph F</option>
+                                <option value="G">Paragraph G</option><option value="H">Paragraph H</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="explanation-box" id="exp-q29">
+                        <div class="exp-header">Giải thích chi tiết <button class="locate-btn" onclick="scrollToElement('para-E')">📍 Đến dẫn chứng</button></div>
+                        <p><strong>1. ĐÁP ÁN:</strong> E</p>
+                        <p><strong>2. ĐOẠN CHỨA ĐÁP ÁN:</strong> Paragraph E: "...archery is an example of a sport encouraged by adults, who wanted boys to grow up to play their part in... a warrior society."</p>
+                        <p><strong>3. DỊCH NGHĨA DẪN CHỨNG:</strong> "...bắn cung là một ví dụ về một môn thể thao được người lớn khuyến khích, những người muốn các cậu bé lớn lên đóng vai trò trong một xã hội chiến binh."</p>
+                        <p><strong>4. CỤM TỪ ĐỒNG NGHĨA:</strong> warlike play = archery, warrior society; approved by grown-ups = encouraged by adults.</p>
+                    </div>
+                </div>
+
+                <!-- Q30 -->
+                <div class="question-block" id="block-q30">
+                    <div class="question-text">
+                        <span>30. A political event mirrored in children’s play</span>
+                        <div class="select-wrapper" id="wrapper-q30">
+                            <select class="custom-select" onchange="checkDropdown('q30', this, 'F')">
+                                <option value="">-- Chọn --</option>
+                                <option value="A">Paragraph A</option><option value="B">Paragraph B</option>
+                                <option value="C">Paragraph C</option><option value="D">Paragraph D</option>
+                                <option value="E">Paragraph E</option><option value="F">Paragraph F</option>
+                                <option value="G">Paragraph G</option><option value="H">Paragraph H</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="explanation-box" id="exp-q30">
+                        <div class="exp-header">Giải thích chi tiết <button class="locate-btn" onclick="scrollToElement('para-F')">📍 Đến dẫn chứng</button></div>
+                        <p><strong>1. ĐÁP ÁN:</strong> F</p>
+                        <p><strong>2. ĐOẠN CHỨA ĐÁP ÁN:</strong> Paragraph F: "In 1400, six months after King Richard II had been overthrown by Henry IV, the children of London gathered together and chose themselves kings..."</p>
+                        <p><strong>3. DỊCH NGHĨA DẪN CHỨNG:</strong> "Vào năm 1400, sáu tháng sau khi vua Richard II bị lật đổ bởi Henry IV, trẻ em tại London đã tập hợp lại và tự chọn ra các vị vua cho mình..."</p>
+                        <p><strong>4. CỤM TỪ ĐỒNG NGHĨA:</strong> political event = King Richard II overthrown; mirrored in play = children chose themselves kings.</p>
+                    </div>
+                </div>
+
+                <!-- Q31 -->
+                <div class="question-block" id="block-q31">
+                    <div class="question-text">
+                        <span>31. The origin of an academic debate about medieval life</span>
+                        <div class="select-wrapper" id="wrapper-q31">
+                            <select class="custom-select" onchange="checkDropdown('q31', this, 'B')">
+                                <option value="">-- Chọn --</option>
+                                <option value="A">Paragraph A</option><option value="B">Paragraph B</option>
+                                <option value="C">Paragraph C</option><option value="D">Paragraph D</option>
+                                <option value="E">Paragraph E</option><option value="F">Paragraph F</option>
+                                <option value="G">Paragraph G</option><option value="H">Paragraph H</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="explanation-box" id="exp-q31">
+                        <div class="exp-header">Giải thích chi tiết <button class="locate-btn" onclick="scrollToElement('para-B')">📍 Đến dẫn chứng</button></div>
+                        <p><strong>1. ĐÁP ÁN:</strong> B</p>
+                        <p><strong>2. ĐOẠN CHỨA ĐÁP ÁN:</strong> Paragraph B: "Forty years ago, the French historian Philippe Ariès argued, in Centuries of Childhood, that childhood in the Middle Ages did not exist... More recent historians have disputed this..."</p>
+                        <p><strong>3. DỊCH NGHĨA DẪN CHỨNG:</strong> "Bốn mươi năm trước, nhà sử học người Pháp Philippe Ariès lập luận rằng tuổi thơ thời Trung cổ không tồn tại... Các nhà sử học gần đây đã bác bỏ điều này..."</p>
+                        <p><strong>4. CỤM TỪ ĐỒNG NGHĨA:</strong> origin of an academic debate = Philippe Ariès argued... historians have disputed this.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- QUESTIONS 32-35 -->
+            <div class="section-card">
+                <div class="section-title">Questions 32–35: Matching Dates</div>
+                <p style="font-size: 13px; color: var(--text-light); margin-bottom: 12px;">Khớp mốc năm dưới đây với sự kiện chính xác (A–J):</p>
+                <div style="background: #FFFDF0; border: 1px dashed var(--secondary); padding: 12px; border-radius: 15px; font-size: 13px; margin-bottom: 20px; line-height: 1.6; color: #5D546A;">
+                    <strong>Danh sách sự kiện (List of Events):</strong><br>
+                    <b>A</b> - invention of cricket | <b>B</b> - children picking grapes | <b>C</b> - poem about value of games | <b>D</b> - early toy manufacturing in England | <b>E</b> - puppets first imported into England | <b>F</b> - dolls taxed in England | <b>G</b> - death of Adam of Usk | <b>H</b> - children playing tennis | <b>I</b> - children’s gang warfare | <b>J</b> - a description of seasonal activities
+                </div>
+
+                <!-- Q32 -->
+                <div class="question-block" id="block-q32">
+                    <div class="question-text">
+                        <span>32. Năm 1400:</span>
+                        <div class="select-wrapper" id="wrapper-q32">
+                            <select class="custom-select" onchange="checkDropdown('q32', this, 'I')">
+                                <option value="">-- Chọn sự kiện --</option>
+                                <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="explanation-box" id="exp-q32">
+                        <div class="exp-header">Giải thích chi tiết <button class="locate-btn" onclick="scrollToElement('para-F')">📍 Đến dẫn chứng</button></div>
+                        <p><strong>1. ĐÁP ÁN:</strong> I</p>
+                        <p><strong>2. ĐOẠN CHỨA ĐÁP ÁN:</strong> Paragraph F: "In 1400... the children of London gathered together... and made war upon each other … whereby many died."</p>
+                        <p><strong>3. DỊCH NGHĨA DẪN CHỨNG:</strong> "Vào năm 1400... trẻ em Luân Đôn tụ tập... và gây chiến với nhau... khiến nhiều đứa tử vong."</p>
+                        <p><strong>4. CỤM TỪ ĐỒNG NGHĨA:</strong> children’s gang warfare = made war upon each other.</p>
+                    </div>
+                </div>
+
+                <!-- Q33 -->
+                <div class="question-block" id="block-q33">
+                    <div class="question-text">
+                        <span>33. Năm 1518:</span>
+                        <div class="select-wrapper" id="wrapper-q33">
+                            <select class="custom-select" onchange="checkDropdown('q33', this, 'J')">
+                                <option value="">-- Chọn sự kiện --</option>
+                                <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="explanation-box" id="exp-q33">
+                        <div class="exp-header">Giải thích chi tiết <button class="locate-btn" onclick="scrollToElement('para-G')">📍 Đến dẫn chứng</button></div>
+                        <p><strong>1. ĐÁP ÁN:</strong> J</p>
+                        <p><strong>2. ĐOẠN CHỨA ĐÁP ÁN:</strong> Paragraph G: "In 1518, the poet Alexander Barclay records children playing with tops in March, looking for fruit in summer and making footballs... in autumn."</p>
+                        <p><strong>3. DỊCH NGHĨA DẪN CHỨNG:</strong> "Vào năm 1518, nhà thơ Alexander Barclay ghi nhận trẻ em chơi quay vào tháng Ba, tìm kiếm trái cây vào mùa hè và làm bóng đá... vào mùa thu."</p>
+                        <p><strong>4. CỤM TỪ ĐỒNG NGHĨA:</strong> description of seasonal activities = playing with tops in March, looking for fruit in summer, making footballs in autumn.</p>
+                    </div>
+                </div>
+
+                <!-- Q34 -->
+                <div class="question-block" id="block-q34">
+                    <div class="question-text">
+                        <span>34. Năm 1582:</span>
+                        <div class="select-wrapper" id="wrapper-q34">
+                            <select class="custom-select" onchange="checkDropdown('q34', this, 'F')">
+                                <option value="">-- Chọn sự kiện --</option>
+                                <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="explanation-box" id="exp-q34">
+                        <div class="exp-header">Giải thích chi tiết <button class="locate-btn" onclick="scrollToElement('para-D')">📍 Đến dẫn chứng</button></div>
+                        <p><strong>1. ĐÁP ÁN:</strong> F</p>
+                        <p><strong>2. ĐOẠN CHỨA ĐÁP ÁN:</strong> Paragraph D: "Girls had dolls, known before the 17th century as ‘poppets’ or puppets, commercially manufactured, imported and, in 1582, taxed at a halfpenny each."</p>
+                        <p><strong>3. DỊCH NGHĨA DẪN CHỨNG:</strong> "Con gái có búp bê, được biết đến trước thế kỷ 17 với tên gọi ‘poppets’, được sản xuất thương mại, nhập khẩu và vào năm 1582, bị đánh thuế ở mức nửa xu mỗi con."</p>
+                        <p><strong>4. CỤM TỪ ĐỒNG NGHĨA:</strong> dolls taxed in England = dolls... taxed.</p>
+                    </div>
+                </div>
+
+                <!-- Q35 -->
+                <div class="question-block" id="block-q35">
+                    <div class="question-text">
+                        <span>35. Năm 1908:</span>
+                        <div class="select-wrapper" id="wrapper-q35">
+                            <select class="custom-select" onchange="checkDropdown('q35', this, 'C')">
+                                <option value="">-- Chọn sự kiện --</option>
+                                <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="explanation-box" id="exp-q35">
+                        <div class="exp-header">Giải thích chi tiết <button class="locate-btn" onclick="scrollToElement('para-A')">📍 Đến dẫn chứng</button></div>
+                        <p><strong>1. ĐÁP ÁN:</strong> C</p>
+                        <p><strong>2. ĐOẠN CHỨA ĐÁP ÁN:</strong> Paragraph A: "...Sir Henry Newbolt’s celebrated cricket poem Vitaï Lampada (1908) sums up views about play... Games promoted endurance, self-discipline and team spirit..."</p>
+                        <p><strong>3. DỊCH NGHĨA DẪN CHỨNG:</strong> "...bài thơ về môn cricket nổi tiếng Vitaï Lampada (1908) của Sir Henry Newbolt tóm tắt các quan điểm về trò chơi... Trò chơi thúc đẩy sức chịu đựng, tính kỷ luật tự giác..."</p>
+                        <p><strong>4. CỤM TỪ ĐỒNG NGHĨA:</strong> poem about value of games = poem Vitaï Lampada (1908) sums up views about play / games promoted endurance...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- QUESTIONS 36-40 -->
+            <div class="section-card">
+                <div class="section-title">Questions 36–40: YES / NO / NOT GIVEN</div>
+                <p style="font-size: 13.5px; color: var(--text-light); margin-bottom: 15px;">Chọn YES nếu nhận định trùng khớp, NO nếu nhận định trái ngược, hoặc NOT GIVEN nếu không có thông tin.</p>
+
+                <!-- Q36 -->
+                <div class="question-block" id="block-q36">
+                    <div class="question-text">36. Little is known about adult attitudes to children’s play in the Middle Ages.</div>
+                    <div class="options-grid">
+                        <div class="option-card" onclick="checkOption(this, 'q36', 'YES')">YES</div>
+                        <div class="option-card" onclick="checkOption(this, 'q36', 'NO')">NO</div>
+                        <div class="option-card" onclick="checkOption(this, 'q36', 'NOT GIVEN')">NOT GIVEN</div>
+                    </div>
+                    <div class="explanation-box" id="exp-q36">
+                        <div class="exp-header">Giải thích chi tiết <button class="locate-btn" onclick="scrollToElement('para-C')">📍 Đến dẫn chứng</button></div>
+                        <p><strong>1. ĐÁP ÁN:</strong> NO</p>
+                        <p><strong>2. ĐOẠN CHỨA ĐÁP ÁN:</strong> Paragraph C: "We know not only how medieval English children played but what their elders thought on the subject."</p>
+                        <p><strong>3. DỊCH NGHĨA DẪN CHỨNG:</strong> "Chúng ta không chỉ biết trẻ em Anh thời trung cổ đã chơi như thế nào mà còn biết những người lớn tuổi nghĩ gì về chủ đề này."</p>
+                        <p><strong>4. CỤM TỪ ĐỒNG NGHĨA:</strong> Little is known trái ngược hoàn toàn với thông tin bài đọc "We know... what their elders thought".</p>
+                    </div>
+                </div>
+
+                <!-- Q37 -->
+                <div class="question-block" id="block-q37">
+                    <div class="question-text">37. Most toys were imported into England before 1300.</div>
+                    <div class="options-grid">
+                        <div class="option-card" onclick="checkOption(this, 'q37', 'YES')">YES</div>
+                        <div class="option-card" onclick="checkOption(this, 'q37', 'NO')">NO</div>
+                        <div class="option-card" onclick="checkOption(this, 'q37', 'NOT GIVEN')">NOT GIVEN</div>
+                    </div>
+                    <div class="explanation-box" id="exp-q37">
+                        <div class="exp-header">Giải thích chi tiết <button class="locate-btn" onclick="scrollToElement('para-D')">📍 Đến dẫn chứng</button></div>
+                        <p><strong>1. ĐÁP ÁN:</strong> NOT GIVEN</p>
+                        <p><strong>2. ĐOẠN CHỨA ĐÁP ÁN:</strong> Paragraph D: "Indeed, by 1300 it appears there was a toy industry in England."</p>
+                        <p><strong>3. DỊCH NGHĨA DẪN CHỨNG:</strong> "Thật vậy, vào năm 1300 dường như đã có một ngành công nghiệp đồ chơi ở Anh."</p>
+                        <p><strong>4. CỤM TỪ ĐỒNG NGHĨA:</strong> Bài đọc chỉ nói đến mốc 1300 có sản xuất đồ chơi ở Anh, không đề cập "Phần lớn (Most) đồ chơi được nhập khẩu trước năm 1300".</p>
+                    </div>
+                </div>
+
+                <!-- Q38 -->
+                <div class="question-block" id="block-q38">
+                    <div class="question-text">38. Medieval children celebrated the seasons in their own ways.</div>
+                    <div class="options-grid">
+                        <div class="option-card" onclick="checkOption(this, 'q38', 'YES')">YES</div>
+                        <div class="option-card" onclick="checkOption(this, 'q38', 'NO')">NO</div>
+                        <div class="option-card" onclick="checkOption(this, 'q38', 'NOT GIVEN')">NOT GIVEN</div>
+                    </div>
+                    <div class="explanation-box" id="exp-q38">
+                        <div class="exp-header">Giải thích chi tiết <button class="locate-btn" onclick="scrollToElement('para-G')">📍 Đến dẫn chứng</button></div>
+                        <p><strong>1. ĐÁP ÁN:</strong> YES</p>
+                        <p><strong>2. ĐOẠN CHỨA ĐÁP ÁN:</strong> Paragraph G: "Children shared in the adult round of religious festivals, but had their own observances as well, semi-detached from their elders."</p>
+                        <p><strong>3. DỊCH NGHĨA DẪN CHỨNG:</strong> "Trẻ em cùng tham gia vào chuỗi các lễ hội tôn giáo của người lớn, nhưng cũng có những nghi thức kỷ niệm riêng biệt của mình, tách biệt một phần với những người lớn tuổi."</p>
+                        <p><strong>4. CỤM TỪ ĐỒNG NGHĨA:</strong> celebrated the seasons in their own ways = had their own observances, semi-detached from their elders.</p>
+                    </div>
+                </div>
+
+                <!-- Q39 -->
+                <div class="question-block" id="block-q39">
+                    <div class="question-text">39. Medieval children made presents for their parents on special occasions.</div>
+                    <div class="options-grid">
+                        <div class="option-card" onclick="checkOption(this, 'q39', 'YES')">YES</div>
+                        <div class="option-card" onclick="checkOption(this, 'q39', 'NO')">NO</div>
+                        <div class="option-card" onclick="checkOption(this, 'q39', 'NOT GIVEN')">NOT GIVEN</div>
+                    </div>
+                    <div class="explanation-box" id="exp-q39">
+                        <div class="exp-header">Giải thích chi tiết</div>
+                        <p><strong>1. ĐÁP ÁN:</strong> NOT GIVEN</p>
+                        <p><strong>2. ĐOẠN CHỨA ĐÁP ÁN:</strong> Toàn bộ văn bản không có thông tin về việc làm quà.</p>
+                        <p><strong>3. DỊCH NGHĨA DẪN CHỨNG:</strong> Không xuất hiện thông tin nói về việc trẻ em làm quà tặng cho bố mẹ vào dịp đặc biệt.</p>
+                        <p><strong>4. CỤM TỪ ĐỒNG NGHĨA:</strong> Không có dữ liệu đối chiếu.</p>
+                    </div>
+                </div>
+
+                <!-- Q40 -->
+                <div class="question-block" id="block-q40">
+                    <div class="question-text">40. Parents and children in the Middle Ages behaved much as they do today.</div>
+                    <div class="options-grid">
+                        <div class="option-card" onclick="checkOption(this, 'q40', 'YES')">YES</div>
+                        <div class="option-card" onclick="checkOption(this, 'q40', 'NO')">NO</div>
+                        <div class="option-card" onclick="checkOption(this, 'q40', 'NOT GIVEN')">NOT GIVEN</div>
+                    </div>
+                    <div class="explanation-box" id="exp-q40">
+                        <div class="exp-header">Giải thích chi tiết <button class="locate-btn" onclick="scrollToElement('para-H')">📍 Đến dẫn chứng</button></div>
+                        <p><strong>1. ĐÁP ÁN:</strong> YES</p>
+                        <p><strong>2. ĐOẠN CHỨA ĐÁP ÁN:</strong> Paragraph H: "...the relationship between adults and children in medieval society was, in major respects, a modern one. ... Childhood has always been much the same."</p>
+                        <p><strong>3. DỊCH NGHĨA DẪN CHỨNG:</strong> "...mối quan hệ giữa người lớn và trẻ em trong xã hội trung cổ, xét trên các khía cạnh lớn, là một mối quan hệ mang tính hiện đại. ... Tuổi thơ luôn luôn cơ bản giống nhau."</p>
+                        <p><strong>4. CỤM TỪ ĐỒNG NGHĨA:</strong> behaved much as they do today = a modern one / always been much the same.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUBMIT AREA -->
+            <div class="submit-area">
+                <button class="submit-main-btn" onclick="submitExam()">NỘP BÀI 🎉</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MODAL SUMMARY -->
+    <div class="modal" id="scoreModal">
+        <div class="modal-content">
+            <h2 style="font-size: 28px; color: var(--primary); font-weight: 900;">BẢNG VÀNG THÀNH TÍCH 🏆</h2>
+            <div class="modal-score" id="modalScore">0 / 14</div>
+            <div class="modal-comment" id="modalComment">Cố lên nhé học trò ơi!</div>
+            <button class="close-modal-btn" onclick="closeModal()">Xem lại đáp án chi tiết</button>
+        </div>
+    </div>
+
+    <script>
+        const answers = {
+            q27: 'D', q28: 'D', q29: 'E', q30: 'F', q31: 'B',
+            q32: 'I', q33: 'J', q34: 'F', q35: 'C',
+            q36: 'NO', q37: 'NOT GIVEN', q38: 'YES', q39: 'NOT GIVEN', q40: 'YES'
+        };
+
+        let userAnswers = {};
+        let totalQuestions = Object.keys(answers).length;
+
+        // Sound System Engine
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playSound(type) {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            if (type === 'correct') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(587.33, audioCtx.currentTime);
+                osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.1);
+                gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+                osc.start(); osc.stop(audioCtx.currentTime + 0.4);
+            } else {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(140, audioCtx.currentTime);
+                osc.frequency.linearRampToValueAtTime(70, audioCtx.currentTime + 0.25);
+                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                osc.start(); osc.stop(audioCtx.currentTime + 0.3);
+            }
+        }
+
+        function toggleTranslation(id) {
+            const el = document.getElementById(id);
+            el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+        }
+
+        function checkDropdown(qId, selectEl, correctAnswer) {
+            const val = selectEl.value;
+            userAnswers[qId] = val;
+            const wrapper = document.getElementById('wrapper-' + qId);
+            const expBox = document.getElementById('exp-' + qId);
+
+            if (val === correctAnswer) {
+                wrapper.className = "select-wrapper correct-state";
+                selectEl.className = "custom-select correct-state";
+                if(expBox) expBox.style.display = "block";
+                playSound('correct');
+            } else if (val !== "") {
+                wrapper.className = "select-wrapper wrong-state";
+                selectEl.className = "custom-select wrong-state";
+                if(expBox) expBox.style.display = "block";
+                playSound('wrong');
+            } else {
+                wrapper.className = "select-wrapper";
+                selectEl.className = "custom-select";
+            }
+            updateProgressBar();
+        }
+
+        function checkOption(cardEl, qId, chosenVal) {
+            const parent = cardEl.parentElement;
+            const cards = parent.querySelectorAll('.option-card');
+            cards.forEach(c => c.className = "option-card");
+
+            userAnswers[qId] = chosenVal;
+            const correctAns = answers[qId];
+            const expBox = document.getElementById('exp-' + qId);
+
+            if (chosenVal === correctAns) {
+                cardEl.className = "option-card correct-state";
+                playSound('correct');
+            } else {
+                cardEl.className = "option-card wrong-state";
+                playSound('wrong');
+                cards.forEach(c => {
+                    if(c.textContent.trim() === correctAns) {
+                        c.className = "option-card correct-state";
+                    }
+                });
+            }
+            if(expBox) expBox.style.display = "block";
+            updateProgressBar();
+        }
+
+        function updateProgressBar() {
+            let answeredCount = Object.keys(userAnswers).length;
+            let percent = (answeredCount / totalQuestions) * 100;
+            document.getElementById('progressBar').style.width = percent + '%';
+        }
+
+        function scrollToElement(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                element.classList.add('highlight-anchor');
+                setTimeout(() => { element.classList.remove('highlight-anchor'); }, 2500);
+            }
+        }
+
+        // Timer System
+        let timeLeft = 25 * 60;
+        let timerInterval = null;
+        let isPaused = true;
+
+        function toggleTimer() {
+            const btn = document.getElementById('timerBtn');
+            if (isPaused) {
+                isPaused = false;
+                btn.textContent = "TẠM DỪNG";
+                btn.style.background = "#FF4757";
+                btn.style.boxShadow = "0 4px 0 #b3313d";
+                timerInterval = setInterval(updateTimer, 1000);
+            } else {
+                isPaused = true;
+                btn.textContent = "TIẾP TỤC LÀM BÀI";
+                btn.style.background = "#00C9A7";
+                btn.style.boxShadow = "0 4px 0 #008f76";
+                clearInterval(timerInterval);
+            }
+        }
+
+        function updateTimer() {
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                alert("Đã hết giờ làm bài. Bạn vẫn có thể tiếp tục làm, nhưng nhớ là trong phòng thi thật, bạn chỉ nên làm một bài như thế này trong 20-25 phút thôi nha.");
+                return;
+            }
+            timeLeft--;
+            let mins = Math.floor(timeLeft / 60);
+            let secs = timeLeft % 60;
+            document.getElementById('timerDisplay').textContent = (mins < 10 ? "0" : "") + mins + ":" + (secs < 10 ? "0" : "") + secs;
+        }
+
+        function submitExam() {
+            let score = 0;
+            for (let key in answers) {
+                if (userAnswers[key] === answers[key]) score++;
+            }
+            document.getElementById('modalScore').textContent = score + " / " + totalQuestions;
+            const comment = document.getElementById('modalComment');
+            if (score === totalQuestions) comment.textContent = "XUẤT SẮC! Em chính là Thiên tài IELTS, cô Hằng tự hào về em! 🌟🏆";
+            else if (score >= 10) comment.textContent = "LÀM TỐT LẮM! Kỹ năng đọc hiểu siêu đỉnh, cố gắng phát huy thêm nhé! 🎉";
+            else comment.textContent = "CỐ LÊN NHÉ! Đọc kỹ phần giải thích chi tiết của cô bên dưới để tiến bộ nha! ❤️";
+
+            document.getElementById('scoreModal').style.display = "flex";
+            for (let key in answers) {
+                const box = document.getElementById('exp-' + key);
+                if(box) box.style.display = "block";
+            }
+        }
+
+        function closeModal() { document.getElementById('scoreModal').style.display = "none"; }
+    </script>
+</body>
+</html>
